@@ -1,9 +1,9 @@
 import { RightOutlined } from "@ant-design/icons";
-import Carousel from "react-elastic-carousel";
-import { useNavigate } from "react-router-dom";
+import Carousal from "@itseasy21/react-elastic-carousel";
 import { v4 as uuidv4 } from "uuid";
-import AnimeCard from "../Cards/AnimeCard";
-import UpcomingCard from "../Cards/UpcomingCard";
+import AnimeCard from "../cards/AnimeCard";
+import UpcomingCard from "../cards/UpcomingCard";
+import { useRouter } from "next/navigation";
 const CarouselRenderer = ({
   finalQuery,
   sectionTitle,
@@ -13,7 +13,7 @@ const CarouselRenderer = ({
   setTrailerId,
   url,
 }) => {
-  const navigate = useNavigate();
+  const navigate = useRouter();
   const breakPoints = [
     { width: 1, itemsToShow: !isAnimeCard ? 2 : 3 },
     { width: 580, itemsToShow: !isAnimeCard ? 2 : 4 },
@@ -45,7 +45,7 @@ const CarouselRenderer = ({
           </a>
         )}
       </div>
-      <Carousel
+      <Carousal
         enableTilt={true}
         enableAutoPlay={true}
         autoPlaySpeed={6000}
@@ -79,7 +79,7 @@ const CarouselRenderer = ({
             ></UpcomingCard>
           )
         )}
-      </Carousel>
+      </Carousal>
     </div>
   );
 };

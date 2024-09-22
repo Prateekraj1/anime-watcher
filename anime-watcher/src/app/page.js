@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-const Home = () => {
-  return <div>cscscscs</div>;
-};
-export default Home;
+export default function Home() {
+  return (
+      <main>
+          <div>
+              <h2>Homepage</h2>
+          </div>
+      </main>
+  );
+}

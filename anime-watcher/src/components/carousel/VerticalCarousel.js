@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import AnimeCard from "../Cards/AnimeCard";
+import AnimeCard from "../cards/AnimeCard";
 const VerticalCarousel = ({ finalQuery, sectionTitle }) => {
   return (
     <div className="vertical-grid-container">

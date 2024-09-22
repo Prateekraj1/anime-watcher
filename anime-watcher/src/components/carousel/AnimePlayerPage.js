@@ -13,15 +13,15 @@ import {
   import TextTruncate from "react-text-truncate";
   import { RWebShare } from "react-web-share";
   import { v4 as uuidv4 } from "uuid";
-  import { GlobalContext } from "../../App";
-  import CarouselRenderer from "../Layouts/CarouselRenderer";
-  import VerticalCarousel from "../Layouts/VerticalCarousel";
-  import AnimePlayer from "../Players/AnimePlayer";
-  import AnimeSection from "../Sections/AnimeSection";
+  import CarouselRenderer from "../carousel/CarouselRenderer";
+  import VerticalCarousel from "../carousel/VerticalCarousel";
+  import AnimePlayer from "../players/AnimePlayer";
+  import AnimeSection from "../home/AnimeSection";
   import Navbar from "../Sections/Navbar";
   import "./AnimePlayerPage.css";
+import { useGlobalContext } from "@/contexts/GlobalContext";
   const AnimePlayerPage = () => {
-    const SharedState = useContext(GlobalContext);
+    const SharedState = useGlobalContext();
   
     const { id } = useParams();
     const [adaptation, setAdaptation] = useState(null);
@@ -32,8 +32,8 @@ import {
     const [currentId, setCurrentId] = useState("");
     const epArray = [];
     const [ep, setEp] = useState(null);
-    const baseURL = process.env.REACT_APP_CONSUMET_API_URL;
-  const animeProvider = process.env.REACT_APP_CONSUMET_PROVIDER;
+    const baseURL = process.env.NEXT_PUBLIC_CONSUMET_API_URL;
+  const animeProvider = process.env.NEXT_PUBLIC_CONSUMET_PROVIDER;
     async function fetchVideoById(url) {
       return await axios.get(url).then(({ data }) => {
   
