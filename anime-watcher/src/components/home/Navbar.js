@@ -116,7 +116,7 @@ const Navbar = () => {
           <li
             onClick={(e) => {
               e.preventDefault();
-              router.push("/recentep");
+              router.push("/recent");
             }}
             className="px-5 py-2 hover:bg-gray-700 rounded-md"
           >
