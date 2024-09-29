@@ -1,3 +1,4 @@
+"use client";
 import "@vime/core/themes/default.css";
 import "@vime/core/themes/light.css";
 import {
@@ -9,13 +10,13 @@ import {
   Player,
   Tooltip,
 } from "@vime/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 const AnimePlayer = ({ src, animeInfoUrl, setVideoIsLoading }) => {
   const [url, setUrl] = useState(null);
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const [savedTime, setSavedTime] = useState(null);
   useEffect(() => {
     if (localStorage.getItem(animeInfoUrl) !== null) {
@@ -29,7 +30,7 @@ const AnimePlayer = ({ src, animeInfoUrl, setVideoIsLoading }) => {
   
     if (!src) {
       toast.error("No servers available");
-      navigate("/");
+      router.push("/");
       return;
     }
     setUrl(src[0]);
@@ -57,7 +58,7 @@ const AnimePlayer = ({ src, animeInfoUrl, setVideoIsLoading }) => {
                 toast.error(
                   "Sorry we could'nt play that :( Going back to home "
                 );
-                navigate("/");
+                router.push("/");
               } else {
                 setUrl(src[1]);
               }
