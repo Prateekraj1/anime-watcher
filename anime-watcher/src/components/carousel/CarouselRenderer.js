@@ -13,7 +13,7 @@ const CarouselRenderer = ({
   setTrailerId,
   url,
 }) => {
-  const navigate = useRouter();
+  const router = useRouter();
   const breakPoints = [
     { width: 1, itemsToShow: !isAnimeCard ? 2 : 3 },
     { width: 580, itemsToShow: !isAnimeCard ? 2 : 4 },
@@ -33,7 +33,7 @@ const CarouselRenderer = ({
           <a
             onClick={(e) => {
               e.preventDefault();
-              navigate("/more/" + sectionTitle.toLowerCase(), {
+              router.push("/more/" + sectionTitle.toLowerCase(), {
                 state: { sectionTitle, url },
               });
             }}

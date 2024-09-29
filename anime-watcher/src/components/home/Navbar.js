@@ -2,23 +2,22 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { GoogleLogout } from "@leecheuk/react-google-login";
 import toast, { Toaster } from "react-hot-toast";
 import logo from "../../../public/assets/logo.png";
-import "./Navbar.css";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/contexts/GlobalContext";
+
 const Navbar = () => {
   const SharedState = useGlobalContext();
-  const [active, setActive] = useState("nav__menu");
-  const [icon, setIcon] = useState("nav__toggler");
+  const [active, setActive] = useState(false);
+  const [icon, setIcon] = useState(false);
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
   const baseURL = process.env.NEXT_PUBLIC_CONSUMET_API_URL;
+
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          if (active === "nav__menu") {
-            setIcon("nav__toggler");
-            setActive("nav__menu");
-          }
+          setActive(false);
+          setIcon(false);
         }
       }
       document.addEventListener("mousedown", handleClickOutside);
@@ -32,13 +31,12 @@ const Navbar = () => {
   useOutsideAlerter(wrapperRef);
   const router = useRouter();
   const location = router.pathname;
+  
   const searchAnime = async (input) => {
     return fetch(`${baseURL}/meta/anilist/${input}`)
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        router("/search", {
+        router.push("/search", {
           state: {
             finalResults: data.results,
             input: input,
@@ -46,43 +44,35 @@ const Navbar = () => {
         });
       });
   };
+
   const [value, setValue] = useState("");
+
   const navToggle = () => {
-    if (active === "nav__menu") {
-      setActive("nav__menu nav__active");
-    } else {
-      setActive("nav__menu");
-    }
-    if (icon === "nav__toggler") {
-      setIcon("nav__toggler toggle");
-    } else setIcon("nav__toggler");
+    setActive(!active);
+    setIcon(!icon);
   };
 
   return (
-    <nav className="nav" ref={wrapperRef}>
-      <Toaster
-        toastOptions={{
-          duration: 1000,
-        }}
-        position="top-right"
-      ></Toaster>
-      <div className="nav-side-div">
+    <nav
+      className="w-full fixed flex bg-[#0f0617] top-0 left-0 right-0 items-center justify-between pr-6 h-[65px] z-[2000] pl-10"
+      ref={wrapperRef}
+    >
+      <Toaster position="top-right" toastOptions={{ duration: 1000 }} />
+      <div className="flex items-center justify-center gap-5">
         <div
-          className="nav-brand"
+          className="flex items-center cursor-pointer gap-2.5 text-white uppercase"
           onClick={(e) => {
             e.preventDefault();
-            router("/");
+            router.push("/");
             window.location.reload();
           }}
         >
-          <img className="nav-brand-logo" src={logo} alt="logo" />
-          <h3 className="nav-brand-title">Animehub</h3>
+          <img className="h-[34px]" src={logo} alt="logo" />
+          <h3 className="hidden sm:block">Animehub</h3>
         </div>
 
         <input
-          onInput={(e) => {
-            setValue(e.target.value);
-          }}
+          onInput={(e) => setValue(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               if (e.target.value === "") toast.error("Input cannot be empty!");
@@ -90,20 +80,25 @@ const Navbar = () => {
             }
           }}
           placeholder="Search for anime"
-          className="searchbar"
+          className="hidden lg:inline-block outline-none bg-[#374151] text-[#9aa2ae] placeholder-white py-2 px-4 rounded-lg w-[60vw] lg:w-[300px] focus:ring-2 focus:ring-violet-600 hover:ring-1 hover:ring-violet-600"
           type="text"
           value={value}
-        ></input>
-        <ul className={active}>
-          <li className="nav__item">
+        />
+
+        <ul
+          className={`${
+            active ? "translate-x-0" : "translate-x-full"
+          } fixed top-[60px] right-0 w-full h-auto z-1 bg-[#10141e] border border-gray-800 rounded-lg flex flex-col items-center gap-2 text-center text-white transition-transform ease-in duration-150 lg:flex-row lg:static lg:translate-x-0 lg:gap-10 lg:border-0 lg:bg-transparent`}
+        >
+          <li className="px-5 py-2 hover:bg-gray-700 rounded-md">
             <span
               onClick={(e) => {
                 e.preventDefault();
                 if (location !== "/") {
-                  router("/");
+                  router.push("/");
                 } else document.querySelector("#popular").scrollIntoView();
               }}
-              className="nav__link"
+              className="cursor-pointer"
             >
               Popular
             </span>
@@ -111,40 +106,40 @@ const Navbar = () => {
           <li
             onClick={(e) => {
               e.preventDefault();
-              router("/movies");
+              router.push("/movies");
             }}
-            className="nav__item"
+            className="px-5 py-2 hover:bg-gray-700 rounded-md"
           >
-            <span className="nav__link">Top Movies</span>
+            <span>Top Movies</span>
           </li>
           <li
             onClick={(e) => {
               e.preventDefault();
-              router("/recentep");
+              router.push("/recentep");
             }}
-            className="nav__item"
+            className="px-5 py-2 hover:bg-gray-700 rounded-md"
           >
-            <span className="nav__link">Recent Ep</span>
+            <span>Recent Ep</span>
           </li>
           <li
             onClick={(e) => {
               e.preventDefault();
-              router("/filter");
+              router.push("/filter");
             }}
-            className="nav__item"
+            className="px-5 py-2 hover:bg-gray-700 rounded-md"
           >
-            <span className="nav__link">Filter</span>
+            <span>Filter</span>
           </li>
           <li
             onClick={(e) => {
               e.preventDefault();
-              router("/watchlist");
+              router.push("/watchlist");
             }}
-            className="nav__item"
+            className="px-5 py-2 hover:bg-gray-700 rounded-md"
           >
-            <span className="nav__link">Watchlist</span>
+            <span>Watchlist</span>
           </li>
-          <div className="auth">
+          <div className="flex gap-2">
             {SharedState.loggedIn ? (
               <li>
                 <GoogleLogout
@@ -152,9 +147,9 @@ const Navbar = () => {
                     <li
                       onClick={renderProps.onClick}
                       disabled={renderProps.disabled}
-                      className="nav__item nav__item-logout"
+                      className="px-5 py-2 hover:bg-gray-700 rounded-md"
                     >
-                      <span className="nav__link">Logout</span>
+                      <span>Logout</span>
                     </li>
                   )}
                   clientId={clientId}
@@ -163,39 +158,46 @@ const Navbar = () => {
                     toast.success("Successfully logged out");
                     SharedState.setIsLoggedIn(false);
                   }}
-                ></GoogleLogout>
+                />
               </li>
             ) : (
-              <li
-                onClick={(e) => {
-                  e.preventDefault();
-                  router("/login");
-                }}
-                className="nav__item nav__item-login"
-              >
-                <span className="nav__link">Login</span>
-              </li>
-            )}
-            {!SharedState.loggedIn && (
-              <li
-                onClick={(e) => {
-                  e.preventDefault();
-                  router("/signup");
-                }}
-                className="nav__item nav__item-signup"
-              >
-                <span className="nav__link">Signup</span>
-              </li>
+              <>
+                <li
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push("/login");
+                  }}
+                  className="px-5 py-2 hover:bg-gray-700 rounded-md"
+                >
+                  <span>Login</span>
+                </li>
+                <li
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push("/signup");
+                  }}
+                  className="bg-purple-600 text-white px-5 py-2 rounded-md"
+                >
+                  <span>Signup</span>
+                </li>
+              </>
             )}
           </div>
         </ul>
       </div>
-      <div onClick={navToggle} className={icon}>
-        <div className="line1"></div>
-        <div className="line2"></div>
-        <div className="line3"></div>
+
+      <div
+        onClick={navToggle}
+        className={`lg:hidden cursor-pointer flex flex-col gap-[0.4rem] transition-all duration-200 ${
+          icon ? "open" : ""
+        }`}
+      >
+        <div className="w-[2rem] h-[0.3rem] bg-gray-200 transition-transform duration-200"></div>
+        <div className={`w-[2rem] h-[0.3rem] bg-gray-200 ${icon ? "opacity-0" : ""}`}></div>
+        <div className="w-[2rem] h-[0.3rem] bg-gray-200 transition-transform duration-200"></div>
       </div>
     </nav>
   );
 };
+
 export default Navbar;

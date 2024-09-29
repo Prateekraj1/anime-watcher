@@ -1,5 +1,5 @@
 import TextTruncate from "react-text-truncate";
-import "./UpcomingCard.css";
+
 const UpcomingCard = ({
   title,
   image,
@@ -15,10 +15,10 @@ const UpcomingCard = ({
           setTrailerId(trailerVideoId);
           setIsPlaying(true);
         }}
-        className="upcomingcard-wrapper"
+        className="flex flex-col items-center justify-center mt-[3px] text-center cursor-pointer"
       >
         <div
-          className="upcomingcard-card"
+          className={`rounded-[4px] transition-all duration-500 bg-cover bg-center ${getCardDimensions()}`}
           style={{
             backgroundImage: `url(${image})`,
           }}
@@ -29,7 +29,7 @@ const UpcomingCard = ({
             e.preventDefault();
           }}
           href="/"
-          className="upcomingcard-title"
+          className="text-white text-[1.2rem] mt-[5px] sm:text-[1.5rem]"
         >
           <TextTruncate text={title} line={2}></TextTruncate>
         </a>
@@ -37,4 +37,12 @@ const UpcomingCard = ({
     </>
   );
 };
+
+const getCardDimensions = () => {
+  return `
+    h-[90px] w-[150px] sm:h-[100px] sm:w-[167px] md:h-[150px] md:w-[225px]
+    lg:h-[180px] lg:w-[270px] xl:h-[200px] xl:w-[310px] 2xl:h-[230px] 2xl:w-[360px]
+  `;
+};
+
 export default UpcomingCard;
