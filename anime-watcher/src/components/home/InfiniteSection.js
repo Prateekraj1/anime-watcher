@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import GridRenderer from "../carousel/GridRenderer";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { v4 as uuidv4 } from "uuid";
 import toast, { Toaster } from "react-hot-toast";
-import "./InfiniteSection.css";
 import {
   faArrowLeftLong,
   faArrowRightLong,
@@ -64,22 +63,21 @@ const InfiniteSection = ({ url, sectiontitle, itemlimit, id, querytype }) => {
     <>
       <section
         id={id}
-        className="section section-infinite"
+        className="section section-infinite pb-10"
         style={{
           marginTop: querytype === "&" || id === "recent-section" ? 90 : "",
         }}
       >
         {fetchedData.length > 0 && (
           <>
-            <h1 className="section-title">{sectiontitle}</h1>
-            <GridRenderer
-              isAnimate={isAnimate}
-              finalQuery={fetchedData}
-            ></GridRenderer>
-            <div className="pagination-wrapper">
-              <div className="pagination">
+            <h1 className="text-[1.9rem] ml-4 text-white max-[768px]:text-[2.5rem] max-[768px]:ml-6">
+              {sectiontitle}
+            </h1>
+            <GridRenderer isAnimate={isAnimate} finalQuery={fetchedData} />
+            <div className="flex justify-center items-center w-screen mt-5">
+              <div className="flex items-center justify-between w-[96%] mt-5 h-[60px] border-t border-dodgerblue">
                 <button
-                  className="previous-page-button"
+                  className="text-[15px] w-[150px] bg-transparent text-white border-none outline-none"
                   onClick={(e) => {
                     if (currpage <= 1) {
                       toast.error("You are on the first page!");
@@ -89,17 +87,14 @@ const InfiniteSection = ({ url, sectiontitle, itemlimit, id, querytype }) => {
                     }
                   }}
                 >
-                  <FontAwesomeIcon icon={faArrowLeftLong}></FontAwesomeIcon>{" "}
-                  &nbsp;Previous
+                  <FontAwesomeIcon icon={faArrowLeftLong} /> &nbsp;Previous
                 </button>
-                <div className="pageindex">
+                <div className="pageindex flex">
                   {pageNumbers.map((pageNumber) => (
                     <button
-                      className="btn-pageindex"
+                      className="border-none p-1 rounded-[5px] text-white bg-none text-[14px]"
                       key={uuidv4()}
-                      onClick={() => {
-                        setCurrpage(pageNumber);
-                      }}
+                      onClick={() => setCurrpage(pageNumber)}
                       style={{
                         backgroundColor:
                           currpage === pageNumber ? "rgb(244, 67, 54)" : "none",
@@ -110,7 +105,7 @@ const InfiniteSection = ({ url, sectiontitle, itemlimit, id, querytype }) => {
                   ))}
                 </div>
                 <button
-                  className="next-page-button"
+                  className="text-[15px] w-[150px] bg-transparent text-white border-none outline-none"
                   onClick={(e) => {
                     if (hasNextPage) {
                       updatePageNumberButtons(e);
@@ -121,7 +116,7 @@ const InfiniteSection = ({ url, sectiontitle, itemlimit, id, querytype }) => {
                   }}
                 >
                   Next&nbsp;
-                  <FontAwesomeIcon icon={faArrowRightLong}></FontAwesomeIcon>
+                  <FontAwesomeIcon icon={faArrowRightLong} />
                 </button>
               </div>
             </div>
