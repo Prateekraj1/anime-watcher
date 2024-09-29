@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import { GoogleLogout } from "@leecheuk/react-google-login";
 import toast, { Toaster } from "react-hot-toast";
 import logo from "../../../public/assets/logo.png";

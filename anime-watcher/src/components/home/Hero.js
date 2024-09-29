@@ -21,7 +21,6 @@ const Hero = ({ setHeroSectionLoaded }) => {
     <>
       {fetchedAnime.length > 0 && (
         <header className="header">
-          <Navbar></Navbar>
           <section style={{ marginTop: 30 }} className="section-header">
             return (
             <Carousal

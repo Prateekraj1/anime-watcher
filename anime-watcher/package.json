@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@itseasy21/react-elastic-carousel": "^0.12.3",
     "@leecheuk/react-google-login": "^5.4.1",
+    "@vime/core": "^5.4.1",
+    "@vime/react": "^5.4.1",
     "axios": "^1.7.7",
     "framer-motion": "^11.5.6",
     "next": "14.2.13",
@@ -24,7 +27,9 @@
     "react-modal-video": "^2.0.2",
     "react-scroll-to-top": "^3.0.0",
     "react-text-truncate": "^0.19.0",
+    "react-web-share": "^2.0.2",
     "sass": "^1.79.3",
+    "styled-components": "^6.1.13",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

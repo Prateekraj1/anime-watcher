@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import GridRenderer from "../carousel/GridRenderer";
 import axios from "axios";
