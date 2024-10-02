@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Col, Container, Row, setConfiguration } from "react-grid-system";
@@ -46,7 +47,7 @@ const GridRenderer = ({ finalQuery, setAnimeInfo, isAnimate }) => {
                 year={query.releaseDate}
                 episodeNumber={query.episodeNumber ? query.episodeNumber : 0}
                 results={query}
-              ></CarouselCard>
+              />
             </motion.div>
           </Col>
         ))}
