@@ -55,7 +55,7 @@ const AnimePlayerPage = ({ id }) => {
       .get(`${baseURL}/meta/anilist/info/${id}?provider=${animeProvider}`)
       .then(({ data }) => {
         setAnime(data);
-        setCurrentId(data.episodes[selectedOption - 1].id);
+        setCurrentId(data.episodes[selectedOption - 1]?.id ?? "");
         for (let i = 1; i <= data.episodes.length; i++) {
           epArray.push(i);
         }
@@ -84,7 +84,7 @@ const AnimePlayerPage = ({ id }) => {
       );
   }, [currentId]);
   useEffect(() => {
-    if (anime) setCurrentId(anime.episodes[selectedOption - 1].id);
+    if (anime) setCurrentId(anime.episodes[selectedOption - 1]?.id ?? "");
   }, [selectedOption, anime]);
   return (
     <>

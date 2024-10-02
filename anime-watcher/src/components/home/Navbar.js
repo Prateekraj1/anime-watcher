@@ -11,7 +11,6 @@ const Navbar = () => {
   const [active, setActive] = useState(false);
   const [icon, setIcon] = useState(false);
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
-  const baseURL = process.env.NEXT_PUBLIC_CONSUMET_API_URL;
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -32,18 +31,9 @@ const Navbar = () => {
   useOutsideAlerter(wrapperRef);
   const router = useRouter();
   const location = router.pathname;
-  
-  const searchAnime = async (input) => {
-    return fetch(`${baseURL}/meta/anilist/${input}`)
-      .then((response) => response.json())
-      .then((data) => {
-        router.push("/search", {
-          state: {
-            finalResults: data.results,
-            input: input,
-          },
-        });
-      });
+
+  const searchAnime = (input) => {
+    router.push(`/search/${input}`);
   };
 
   const [value, setValue] = useState("");
@@ -194,7 +184,11 @@ const Navbar = () => {
         }`}
       >
         <div className="w-[2rem] h-[0.3rem] bg-gray-200 transition-transform duration-200"></div>
-        <div className={`w-[2rem] h-[0.3rem] bg-gray-200 ${icon ? "opacity-0" : ""}`}></div>
+        <div
+          className={`w-[2rem] h-[0.3rem] bg-gray-200 ${
+            icon ? "opacity-0" : ""
+          }`}
+        ></div>
         <div className="w-[2rem] h-[0.3rem] bg-gray-200 transition-transform duration-200"></div>
       </div>
     </nav>
