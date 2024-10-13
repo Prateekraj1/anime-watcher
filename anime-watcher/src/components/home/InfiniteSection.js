@@ -10,6 +10,7 @@ import {
   faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { useGlobalContext } from "@/contexts/GlobalContext";
+import CardShimmer from "../shimmer/CardShimmer";
 const InfiniteSection = ({ url, sectiontitle, itemlimit, id, querytype }) => {
   const SharedState = useGlobalContext();
   const [fetchedData, setFetchedData] = useState([]);
@@ -68,7 +69,71 @@ const InfiniteSection = ({ url, sectiontitle, itemlimit, id, querytype }) => {
         style={{
           marginTop: querytype === "&" || id === "recent-section" ? 90 : "",
         }}
-      >
+      > 
+        {fetchedData.length<=0 && (
+          <div className="p-[10px]">
+          <div className="flex mt-[100px] gap-[30px] sm:hidden">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="hidden mt-[100px] gap-[30px] sm:flex">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="flex mt-[100px] gap-[30px] sm:hidden">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="hidden mt-[100px] gap-[30px] sm:flex">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="flex mt-[100px] gap-[30px] sm:hidden">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="hidden mt-[100px] gap-[30px] sm:flex">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="flex mt-[100px] gap-[30px] sm:hidden">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="hidden mt-[100px] gap-[30px] sm:flex">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="flex mt-[100px] gap-[30px] sm:hidden">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="hidden mt-[100px] gap-[30px] sm:flex">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="flex mt-[100px] gap-[30px] sm:hidden">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="hidden mt-[100px] gap-[30px] sm:flex">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+        </div>
+        )}
         {fetchedData.length > 0 && (
           <>
             <h1 className="text-[1.9rem] ml-4 text-white max-[768px]:text-[2.5rem] max-[768px]:ml-6">
