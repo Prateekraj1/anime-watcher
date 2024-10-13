@@ -81,7 +81,7 @@ const Navbar = () => {
             active ? "translate-x-0" : "translate-x-full"
           } fixed top-[60px] right-0 w-full h-auto z-1 bg-[#10141e] border border-gray-800 rounded-lg flex flex-col items-center gap-2 text-center text-white transition-transform ease-in duration-150 lg:flex-row lg:static lg:translate-x-0 lg:gap-10 lg:border-0 lg:bg-transparent`}
         >
-          <li className="px-5 py-2 hover:bg-gray-700 rounded-md">
+          <li className="px-5 py-2 hover:bg-gray-700 rounded-md cursor-pointer">
             <span
               onClick={(e) => {
                 e.preventDefault();
@@ -99,37 +99,28 @@ const Navbar = () => {
               e.preventDefault();
               router.push("/movies");
             }}
-            className="px-5 py-2 hover:bg-gray-700 rounded-md"
+            className="px-5 py-2 hover:bg-gray-700 rounded-md cursor-pointer"
           >
             <span>Top Movies</span>
           </li>
           <li
             onClick={(e) => {
               e.preventDefault();
-              router.push("/recent");
-            }}
-            className="px-5 py-2 hover:bg-gray-700 rounded-md"
-          >
-            <span>Recent Ep</span>
-          </li>
-          <li
-            onClick={(e) => {
-              e.preventDefault();
               router.push("/filter");
             }}
-            className="px-5 py-2 hover:bg-gray-700 rounded-md"
+            className="px-5 py-2 hover:bg-gray-700 rounded-md cursor-pointer"
           >
             <span>Filter</span>
           </li>
-          <li
+          {/* <li
             onClick={(e) => {
               e.preventDefault();
               router.push("/watchlist");
             }}
-            className="px-5 py-2 hover:bg-gray-700 rounded-md"
+            className="px-5 py-2 hover:bg-gray-700 rounded-md cursor-pointer"
           >
             <span>Watchlist</span>
-          </li>
+          </li> */}
           <div className="flex gap-2">
             {SharedState.loggedIn ? (
               <li>
@@ -138,7 +129,7 @@ const Navbar = () => {
                     <li
                       onClick={renderProps.onClick}
                       disabled={renderProps.disabled}
-                      className="px-5 py-2 hover:bg-gray-700 rounded-md"
+                      className="px-5 py-2 hover:bg-gray-700 rounded-md cursor-pointer"
                     >
                       <span>Logout</span>
                     </li>
@@ -158,7 +149,7 @@ const Navbar = () => {
                     e.preventDefault();
                     router.push("/login");
                   }}
-                  className="px-5 py-2 hover:bg-gray-700 rounded-md"
+                  className="px-5 py-2 hover:bg-gray-700 rounded-md cursor-pointer"
                 >
                   <span>Login</span>
                 </li>
@@ -167,7 +158,7 @@ const Navbar = () => {
                     e.preventDefault();
                     router.push("/signup");
                   }}
-                  className="bg-purple-600 text-white px-5 py-2 rounded-md"
+                  className="bg-purple-600 text-white px-5 py-2 rounded-md cursor-pointer"
                 >
                   <span>Signup</span>
                 </li>

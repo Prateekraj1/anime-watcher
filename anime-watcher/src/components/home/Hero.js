@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Carousal from "@itseasy21/react-elastic-carousel";
 import { v4 as uuidv4 } from "uuid";
-import Navbar from "./Navbar";
 import HeroCard from "../cards/HeroCard";
 const Hero = ({ setHeroSectionLoaded }) => {
   const carouselRef = useRef(null);
