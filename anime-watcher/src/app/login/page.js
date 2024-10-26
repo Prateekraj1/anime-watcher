@@ -18,7 +18,7 @@ export default function Login() {
       });
 
       if (res.ok) {
-        router.push("/dashboard");
+        router.push("/home");
       } else {
         setError("Invalid username or password.");
       }

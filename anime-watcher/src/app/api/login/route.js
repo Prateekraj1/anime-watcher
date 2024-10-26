@@ -1,9 +1,9 @@
 import dbConnect from "@/lib/mongodb";
-import User from "@/models/User";
+import User from "@/models/Users";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function POST(request) {
   await dbConnect();
@@ -15,6 +15,6 @@ export async function POST(request) {
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) return new Response("Invalid password", { status: 401 });
 
-  const token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: "9h" });
   return new Response(JSON.stringify({ token }), { status: 200 });
 }
