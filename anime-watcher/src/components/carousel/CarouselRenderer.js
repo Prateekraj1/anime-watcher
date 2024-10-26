@@ -27,8 +27,8 @@ const CarouselRenderer = ({
 
   return (
     <div className="carouselinstance">
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {sectionTitle && <h1 className="row-title">{sectionTitle}</h1>}
+      <div className="flex justify-between">
+        {sectionTitle && <h1 className="row-title text-white text-2xl">{sectionTitle}</h1>}
         {isAnimeCard && sectionTitle !== "Recommendations" && (
           <a
             onClick={(e) => {
