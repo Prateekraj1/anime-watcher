@@ -4,15 +4,20 @@ import { GoogleLogout } from "@leecheuk/react-google-login";
 import toast, { Toaster } from "react-hot-toast";
 import logo from "../../../public/assets/logo.png";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from "@/contexts/GlobalContext";
+import { useUser } from "@/contexts/UserContext";
 
 const Navbar = () => {
-  const SharedState = useGlobalContext();
+  const { isLoggedIn, setIsLoggedIn, setUser } = useUser();
   const [active, setActive] = useState(false);
   const [icon, setIcon] = useState(false);
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
   const baseURL = process.env.NEXT_PUBLIC_CONSUMET_API_URL;
 
+  const logOut = () => {
+    setIsLoggedIn(false);
+    setUser(null);
+    router.push("/home");
+  };
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       function handleClickOutside(event) {
@@ -32,7 +37,7 @@ const Navbar = () => {
   useOutsideAlerter(wrapperRef);
   const router = useRouter();
   const location = router.pathname;
-  
+
   const searchAnime = async (input) => {
     return fetch(`${baseURL}/meta/anilist/${input}`)
       .then((response) => response.json())
@@ -141,25 +146,12 @@ const Navbar = () => {
             <span>Watchlist</span>
           </li>
           <div className="flex gap-2">
-            {SharedState.loggedIn ? (
-              <li>
-                <GoogleLogout
-                  render={(renderProps) => (
-                    <li
-                      onClick={renderProps.onClick}
-                      disabled={renderProps.disabled}
-                      className="px-5 py-2 hover:bg-gray-700 rounded-md"
-                    >
-                      <span>Logout</span>
-                    </li>
-                  )}
-                  clientId={clientId}
-                  buttonText="Logout"
-                  onLogoutSuccess={() => {
-                    toast.success("Successfully logged out");
-                    SharedState.setIsLoggedIn(false);
-                  }}
-                />
+            {isLoggedIn ? (
+              <li
+                className="px-5 py-2 hover:bg-gray-700 rounded-md"
+                onClick={logOut}
+              >
+                <span>Logout</span>
               </li>
             ) : (
               <>
@@ -194,7 +186,11 @@ const Navbar = () => {
         }`}
       >
         <div className="w-[2rem] h-[0.3rem] bg-gray-200 transition-transform duration-200"></div>
-        <div className={`w-[2rem] h-[0.3rem] bg-gray-200 ${icon ? "opacity-0" : ""}`}></div>
+        <div
+          className={`w-[2rem] h-[0.3rem] bg-gray-200 ${
+            icon ? "opacity-0" : ""
+          }`}
+        ></div>
         <div className="w-[2rem] h-[0.3rem] bg-gray-200 transition-transform duration-200"></div>
       </div>
     </nav>

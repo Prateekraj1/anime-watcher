@@ -6,15 +6,12 @@ export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [videoIsLoading, setVideoIsLoading] = useState(false);
-  const [loggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <GlobalContext.Provider
       value={{
         videoIsLoading,
         setVideoIsLoading,
-        loggedIn,
-        setIsLoggedIn,
       }}
     >
       {children}

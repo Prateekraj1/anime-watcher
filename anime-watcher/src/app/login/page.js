@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/contexts/UserContext";
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: "", password: "" });
+  const { setIsLoggedIn, setUser } = useUser();
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -18,6 +20,14 @@ export default function Login() {
       });
 
       if (res.ok) {
+        const data = await res.json();
+        const { token, user } = data;
+
+        // Store the JWT token in localStorage
+        localStorage.setItem("token", token);
+
+        setIsLoggedIn(true);
+        setUser(user);
         router.push("/home");
       } else {
         setError("Invalid username or password.");
@@ -35,7 +45,9 @@ export default function Login() {
           type="text"
           placeholder="Username"
           value={formData.username}
-          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, username: e.target.value })
+          }
           className="w-full p-2 mb-4 bg-gray-700 text-white rounded"
           required
         />
@@ -43,11 +55,16 @@ export default function Login() {
           type="password"
           placeholder="Password"
           value={formData.password}
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
           className="w-full p-2 mb-4 bg-gray-700 text-white rounded"
           required
         />
-        <button type="submit" className="w-full p-2 bg-blue-600 text-white rounded">
+        <button
+          type="submit"
+          className="w-full p-2 bg-blue-600 text-white rounded"
+        >
           Log In
         </button>
         {error && <p className="text-red-500 mt-4">{error}</p>}
