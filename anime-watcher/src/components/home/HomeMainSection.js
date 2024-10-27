@@ -6,22 +6,41 @@ import Hero from "./Hero";
 import UpcomingSection from "./UpcomingSection";
 import InfiniteSection from "./InfiniteSection";
 import ScrollToTop from "react-scroll-to-top";
+import CardShimmer from "../shimmer/CardShimmer";
+import UpcommingCardShimmer from "../shimmer/home/UpcommingCardShimmer";
+import BannerShimmer from "../shimmer/home/BannerShimmer";
 
 const HomeMainSection = () => {
   const baseURL = process.env.NEXT_PUBLIC_ANILIST_API_URL;
-  const [heroSectionLoaded, setHeroSectionLoaded] = useState(true);
+  const [heroSectionLoaded, setHeroSectionLoaded] = useState(false);
 
   return (
     <>
       <Hero setHeroSectionLoaded={setHeroSectionLoaded}></Hero>
+
+      {!heroSectionLoaded && (
+        <div className="p-[10px]">
+          <BannerShimmer />
+          <div className="flex mt-[100px] gap-[30px]">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <UpcommingCardShimmer key={index} />
+            ))}
+          </div>
+          <div className="flex mt-[100px] gap-[30px]">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+          <div className="flex mt-[100px] gap-[30px]">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CardShimmer key={index} />
+            ))}
+          </div>
+        </div>
+      )}
       {heroSectionLoaded && (
         <>
           <UpcomingSection></UpcomingSection> *
-          <AnimeSection
-            url={`${baseURL}/recent-episodes`}
-            id={"recent"}
-            sectiontitle={"Recent"}
-          ></AnimeSection>
           <AnimeSection
             url={`${baseURL}/advanced-search?format=SPECIAL`}
             id={"special"}
