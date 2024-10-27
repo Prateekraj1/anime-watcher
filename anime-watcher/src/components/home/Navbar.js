@@ -9,6 +9,7 @@ const Navbar = () => {
   const { isLoggedIn, setIsLoggedIn, setUser } = useUser();
   const [active, setActive] = useState(false);
   const [icon, setIcon] = useState(false);
+  const baseURL = process.env.NEXT_PUBLIC_CONSUMET_API_URL;
 
   const logOut = () => {
     setIsLoggedIn(false);
