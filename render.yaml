@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: anime-watcher
+    env: node
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NEXT_PUBLIC_CONSUMET_API_URL
+        value: https://consumet-instance-alpha.vercel.app
+      - key: JWT_SECRET
+        value: PrateekSecretKey
+      - key: NEXT_MONGODB_URI
+        value: mongodb://localhost:27017/
+      - key: NEXT_PUBLIC_ANILIST_API_URL
+        value: https://consumet-instance-alpha.vercel.app/meta/anilist
+      - key: NEXT_PUBLIC_CONSUMET_PROVIDER
+        value: gogoanime
