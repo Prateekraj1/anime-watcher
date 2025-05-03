@@ -30,6 +30,8 @@ const AnimePlayerPage = ({ id }) => {
   const epArray = [];
   const [ep, setEp] = useState(null);
   const baseURL = process.env.NEXT_PUBLIC_CONSUMET_API_URL;
+  const [linesToShow, setLinesToShow] = useState(8);
+
   const animeProvider = process.env.NEXT_PUBLIC_CONSUMET_PROVIDER;
   async function fetchVideoById(url) {
     return await axios.get(url).then(({ data }) => {
@@ -86,6 +88,12 @@ const AnimePlayerPage = ({ id }) => {
   useEffect(() => {
     if (anime) setCurrentId(anime.episodes[selectedOption - 1]?.id ?? "");
   }, [selectedOption, anime]);
+  
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     setLinesToShow(window.innerWidth < 800 ? 4 : 8);
+  //   }
+  // }, []);
   return (
     <>
       {currentStreamUrl !== null && (
@@ -176,8 +184,9 @@ const AnimePlayerPage = ({ id }) => {
               <p className="summary-content">
                 <TextTruncate
                   text={description}
-                  line={window.innerWidth < 800 ? 4 : 8}
-                ></TextTruncate>
+                  line={linesToShow}
+                />
+
               </p>
               <br />
               <div className="additional-anime-info">
